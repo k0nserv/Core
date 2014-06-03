@@ -208,6 +208,15 @@ module Pod
         ]
       end
 
+      it 'excludes the test subspec from the subspec dependencies' do
+        @spec.test_spec { |test_spec| }
+
+        @spec.subspec_dependencies.sort.should == [
+          Dependency.new('Pod/Subspec'),
+          Dependency.new('Pod/SubspecOSX'),
+          Dependency.new('Pod/SubspeciOS')]
+      end
+
       it 'returns all the dependencies' do
         @spec.dependencies.sort.should == [
           Dependency.new('AFNetworking'),
